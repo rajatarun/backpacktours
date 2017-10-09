@@ -1,7 +1,9 @@
 package com.backpack.backpacktours.controllers;
 
+import jdk.nashorn.internal.parser.JSONParser;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.async.DeferredResult;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,9 +12,8 @@ import java.util.Map;
 public class AuthenticationController {
 
     @RequestMapping("/login")
-    public Map<String,Object> login(){
-        Map<String,Object> userMap = new HashMap<>();
-        userMap.put("hello","world");
-        return userMap;
+    public DeferredResult<?> login(){
+        DeferredResult result = new DeferredResult();
+        return result;
     }
 }

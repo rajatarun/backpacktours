@@ -1,19 +1,19 @@
 package com.backpack.backpacktours.model;
 
 
+//
+//import javax.persistence.Column;
+//import javax.persistence.Entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-
-@Entity
+//@Entity
 public class User {
-    @Column
+//    @Column
     private String dateOfBirth;
-    @Column
+//    @Column
     private String password;
-    @Column
+//    @Column
     private String email;
-    @Column
+//    @Column
     private String name;
 
     public String getEmail() {
