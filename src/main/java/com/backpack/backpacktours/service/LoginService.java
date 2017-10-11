@@ -1,14 +1,22 @@
 package com.backpack.backpacktours.service;
 
 import com.backpack.backpacktours.Repository.LoginRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.async.DeferredResult;
 
-@Service
-public class loginService {
+import java.util.Map;
 
+@Service
+public class LoginService {
+    @Autowired
+    LoginRepository loginInfo = new LoginRepository();
     public DeferredResult<?> login(){
-         LoginRepository loginInfo = new LoginRepository();
+
          return loginInfo.fetchloginDataFromDatabase();
+    }
+
+    public Map<String, Object>  getUserDetails(String userId) {
+        return loginInfo.fetchUserInfoFromDatabase(userId);
     }
 }
