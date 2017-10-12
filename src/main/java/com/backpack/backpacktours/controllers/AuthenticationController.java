@@ -17,8 +17,9 @@ public class AuthenticationController {
     @Autowired
     LoginService loginService;
     @RequestMapping(value="/login",method= RequestMethod.POST)
-    public DeferredResult<?> login(@RequestBody( required = true) User user ){
+    public DeferredResult<?> login(@RequestParam(value = "userId") String userId ){
         DeferredResult<ResponseEntity<?>> response = new DeferredResult<>();
+        response.setResult(new ResponseEntity<Boolean>(loginService.authenticateUser(userId), HttpStatus.OK));
         return response;
     }
 

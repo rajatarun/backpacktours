@@ -10,13 +10,14 @@ import org.springframework.web.context.request.async.DeferredResult;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 @Component
 public class LoginRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
-    private String USER_QUERY = "SELECT * FROM ROOT.USERS WHERE USERID='";
+    private String USER_QUERY = "SELECT * FROM ROOT.USERS WHERE USERID=";
     public DeferredResult<?> fetchloginDataFromDatabase() {
         DeferredResult<?> result = new DeferredResult();
         return result;
@@ -24,6 +25,14 @@ public class LoginRepository {
 
     public Map<String, Object> fetchUserInfoFromDatabase(String userId) {
 //        System.out.println( );
-        return jdbcTemplate.queryForMap(USER_QUERY+userId+"'");
+        try {
+            System.out.println(USER_QUERY + "'" + userId + "'");
+            return jdbcTemplate.queryForMap(USER_QUERY + "'" + userId + "'");
+        } catch (Exception e) {
+            System.out.println("Exception = [" + e + "]");
+            Map<String,Object> a = new HashMap<>();
+            a.put("statusCode",e.getStackTrace());
+            return a;
+        }
     }
 }

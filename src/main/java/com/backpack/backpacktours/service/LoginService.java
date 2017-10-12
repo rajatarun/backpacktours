@@ -19,4 +19,17 @@ public class LoginService {
     public Map<String, Object>  getUserDetails(String userId) {
         return loginInfo.fetchUserInfoFromDatabase(userId);
     }
+    public boolean authenticateUser(String userId){
+        try {
+            Map<String, Object> response = loginInfo.fetchUserInfoFromDatabase(userId);
+            if(response.containsKey(userId)){
+                return true;
+            }
+            return false;
+        }
+        catch(Exception e){
+            return false;
+        }
+
+    }
 }
