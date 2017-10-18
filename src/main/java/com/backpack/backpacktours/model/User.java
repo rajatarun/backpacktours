@@ -1,52 +1,70 @@
 package com.backpack.backpacktours.model;
 
 
-//
-//import javax.persistence.Column;
-//import javax.persistence.Entity;
 
-//@Entity
+import org.hibernate.boot.model.relational.Namespace;
+
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "USER_INFO")
 public class User {
-//    @Column
-    private String dateOfBirth;
-//    @Column
-    private String password;
-//    @Column
-    private String email;
-//    @Column
-    private String name;
-
-    public String getEmail() {
-        return email;
+    public User( String USERID, String NAME,String DOB, String PASSWORD) {
+        this.DOB = DOB;
+        this.PASSWORD = PASSWORD;
+        this.USERID = USERID;
+        this.NAME = NAME;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    @Column
+    private String DOB;
 
 
-    public String getName() {
-        return name;
+    @Column
+    private String PASSWORD;
+
+
+    public String getDOB() {
+        return DOB;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDOB(String DOB) {
+        this.DOB = DOB;
     }
 
-    public String getDateOfBirth() {
-        return dateOfBirth;
+    public String getPASSWORD() {
+        return PASSWORD;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setPASSWORD(String PASSWORD) {
+        this.PASSWORD = PASSWORD;
     }
+
+    public String getUSERID() {
+        return USERID;
+    }
+
+    public void setUSERID(String USERID) {
+        this.USERID = USERID;
+    }
+
+    public String getNAME() {
+        return NAME;
+    }
+
+    public void setNAME(String NAME) {
+        this.NAME = NAME;
+    }
+
+    @Column
+    private String USERID;
+    @Column
+    private String NAME;
+
 
 }

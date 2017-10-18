@@ -17,7 +17,7 @@ import java.util.Map;
 public class LoginRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
-    private String USER_QUERY = "SELECT * FROM ROOT.USERS WHERE USERID=";
+    private String USER_QUERY = "SELECT * FROM USERS WHERE USERID=";
     public DeferredResult<?> fetchloginDataFromDatabase() {
         DeferredResult<?> result = new DeferredResult();
         return result;

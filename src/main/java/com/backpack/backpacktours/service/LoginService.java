@@ -22,7 +22,7 @@ public class LoginService {
     public boolean authenticateUser(String userId){
         try {
             Map<String, Object> response = loginInfo.fetchUserInfoFromDatabase(userId);
-            if(response.containsKey(userId)){
+            if(response.containsValue(userId)){
                 return true;
             }
             return false;
