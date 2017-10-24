@@ -10,11 +10,12 @@ import javax.persistence.*;
 @Entity
 @Table(name = "USER_INFO")
 public class User {
-    public User( String USERID, String NAME,String DOB, String PASSWORD) {
+    public User( String USERID, String NAME,String DOB, String PASSWORD, String CONFIRMPASSWORD) {
         this.DOB = DOB;
         this.PASSWORD = PASSWORD;
         this.USERID = USERID;
         this.NAME = NAME;
+        this.CONFIRMPASSWORD=CONFIRMPASSWORD;
     }
 
     @Id
@@ -24,6 +25,16 @@ public class User {
     @Column
     private String DOB;
 
+    public String getCONFIRMPASSWORD() {
+        return CONFIRMPASSWORD;
+    }
+
+    public void setCONFIRMPASSWORD(String CONFIRMPASSWORD) {
+        this.CONFIRMPASSWORD = CONFIRMPASSWORD;
+    }
+
+    @Column
+    private String CONFIRMPASSWORD;
 
     @Column
     private String PASSWORD;

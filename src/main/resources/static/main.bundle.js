@@ -314,6 +314,11 @@ var AuthenticationService = (function () {
         value.password = undefined;
         return this.http.post('http://localhost:8080/login', value.userId, options);
     };
+    AuthenticationService.prototype.register = function (value) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/json', 'cache-control': 'no-cache' });
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
+        return this.http.post('http://localhost:8080/register', value, options);
+    };
     return AuthenticationService;
 }());
 AuthenticationService = __decorate([
@@ -427,7 +432,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/authentication/registration/registration.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<br><br>\n<h3 class=\"center\">Register</h3>\n<span class=\"col-md-3\"></span>\n<form class=\"col-md-6 border\" [formGroup]=\"regForm\">\n  <div class=\"form-group\">\n    <input type=\"text\" class=\"form-control is-invalid\" [formControl]=\"regForm.controls['name']\" id=\"name\" placeholder=\"Full Name\" >\n  </div>\n  <div class=\"form-group\">\n    <input type=\"email\" class=\"form-control\" [formControl]=\"regForm.controls['email']\" id=\"email\" placeholder=\"Email\" email>\n  </div>\n  <div class=\"form-group\">\n    <input type=\"date\" class=\"form-control\" [formControl]=\"regForm.controls['dob']\" id=\"dob\" placeholder=\"Date of Birth\">\n  </div>\n  <div class=\"form-group\">\n    <input type=\"password\" class=\"form-control\" [formControl]=\"regForm.controls['password']\" id=\"password\" placeholder=\"Password\">\n  </div>\n  <div class=\"form-group\">\n    <input type=\"password\" class=\"form-control\" [formControl]=\"regForm.controls['confirmPassword']\" id=\"confirmpassword\" placeholder=\"Renter Password\">\n  </div>\n  <div class=\"center\">\n    <button type=\"submit\" class=\"btn btn-danger\" [disabled]=\"!regForm.valid\">Register</button>\n  </div>\n\n</form>\n"
+module.exports = "<br><br>\n<h3 class=\"center\">Register</h3>\n<span class=\"col-md-3\"></span>\n<form class=\"col-md-6 border\" [formGroup]=\"regForm\" (ngSubmit)=\"registerUser(regForm)\">\n  <div class=\"form-group\">\n    <input type=\"text\" class=\"form-control is-invalid\" [formControl]=\"regForm.controls['NAME']\" id=\"name\" placeholder=\"Full Name\" >\n  </div>\n  <div class=\"form-group\">\n    <input type=\"email\" class=\"form-control\" [formControl]=\"regForm.controls['USERID']\" id=\"email\" placeholder=\"Email\" email>\n  </div>\n  <div class=\"form-group\">\n    <input type=\"date\" class=\"form-control\" [formControl]=\"regForm.controls['DOB']\" id=\"dob\" placeholder=\"Date of Birth\">\n  </div>\n  <div class=\"form-group\">\n    <input type=\"password\" class=\"form-control\" [formControl]=\"regForm.controls['PASSWORD']\" id=\"password\" placeholder=\"Password\">\n  </div>\n  <div class=\"form-group\">\n    <input type=\"password\" class=\"form-control\" [formControl]=\"regForm.controls['CONFIRMPASSWORD']\" id=\"confirmpassword\" placeholder=\"Renter Password\">\n  </div>\n  <div class=\"center\">\n    <button type=\"submit\" class=\"btn btn-danger\" [disabled]=\"!regForm.valid\">Register</button>\n  </div>\n\n</form>\n"
 
 /***/ }),
 
@@ -438,6 +443,7 @@ module.exports = "<br><br>\n<h3 class=\"center\">Register</h3>\n<span class=\"co
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegistrationComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__authentication_service__ = __webpack_require__("../../../../../src/app/authentication/authentication.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -449,17 +455,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var RegistrationComponent = (function () {
-    function RegistrationComponent(fb) {
+    function RegistrationComponent(fb, authentication) {
+        this.authentication = authentication;
         this.regForm = fb.group({
-            name: [null, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].required],
-            email: [null, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].required],
-            password: [null, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].required],
-            confirmPassword: [null, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].required],
-            dob: [null, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].required],
+            NAME: [null, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].required],
+            USERID: [null, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].required],
+            PASSWORD: [null, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].required],
+            CONFIRMPASSWORD: [null, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].required],
+            DOB: [null, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].required],
         });
     }
     RegistrationComponent.prototype.ngOnInit = function () {
+    };
+    RegistrationComponent.prototype.registerUser = function (form) {
+        console.log(form.value);
+        this.authentication.register(form.value).subscribe(function (response) {
+            if (response === true) {
+                console.log(response);
+            }
+        });
     };
     return RegistrationComponent;
 }());
@@ -467,12 +483,13 @@ RegistrationComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
         selector: 'app-registration',
         template: __webpack_require__("../../../../../src/app/authentication/registration/registration.component.html"),
-        styles: [__webpack_require__("../../../../../src/app/authentication/registration/registration.component.css")]
+        styles: [__webpack_require__("../../../../../src/app/authentication/registration/registration.component.css")],
+        providers: [__WEBPACK_IMPORTED_MODULE_2__authentication_service__["a" /* AuthenticationService */]]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__authentication_service__["a" /* AuthenticationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__authentication_service__["a" /* AuthenticationService */]) === "function" && _b || Object])
 ], RegistrationComponent);
 
-var _a;
+var _a, _b;
 //# sourceMappingURL=registration.component.js.map
 
 /***/ }),

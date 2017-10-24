@@ -35,7 +35,7 @@ public class AuthenticationController {
         DeferredResult<ResponseEntity<?>> response = new DeferredResult<>();
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Access-Control-Allow-Origin","*");
-        response.setResult(new ResponseEntity<String>(registrationService.postDataToDatabase(new User(user.get("USERID"),user.get("NAME"),user.get("DOB"),user.get("PASSWORD"))), responseHeaders, HttpStatus.OK));
+        response.setResult(new ResponseEntity<String>(registrationService.postDataToDatabase(new User(user.get("USERID"),user.get("NAME"),user.get("DOB"),user.get("PASSWORD"),user.get("CONFIRMPASSWORD"))), responseHeaders, HttpStatus.OK));
         return response;
     }
 
